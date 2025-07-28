@@ -5,6 +5,8 @@ import { CreateRequestItemInput } from './dto/create-request-item.input';
 import { UpdateRequestItemInput } from './dto/update-request-item.input';
 import { ItemApprovalStatusService } from '../item-approval-status/item-approval-status.service';
 import { ProductService } from '../product/product.service';
+import { ItemApprovalStatus } from 'src/item-approval-status/item-approval-status.entity';
+import { Product } from 'src/product/product.entity';
 
 @Resolver(() => RequestItem)
 export class RequestItemResolver {

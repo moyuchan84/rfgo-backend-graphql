@@ -8,7 +8,15 @@ export class ProductMetaService {
   constructor(private prisma: PrismaService) {}
 
   create(createProductMetaInput: CreateProductMetaInput) {
-    return this.prisma.product_meta.create({ data: createProductMetaInput });
+    const { productId, processId, mtoDate, customer } = createProductMetaInput;
+    return this.prisma.product_meta.create({
+      data: {
+        product_id: productId,
+        process_id: processId,
+        mto_date: mtoDate,
+        customer: customer,
+      },
+    });
   }
 
   findAll() {
@@ -20,9 +28,15 @@ export class ProductMetaService {
   }
 
   update(id: number, updateProductMetaInput: UpdateProductMetaInput) {
+    const { productId, processId, mtoDate, customer } = updateProductMetaInput;
     return this.prisma.product_meta.update({
       where: { id },
-      data: updateProductMetaInput,
+      data: {
+        product_id: productId,
+        process_id: processId,
+        mto_date: mtoDate,
+        customer: customer,
+      },
     });
   }
 

@@ -8,6 +8,11 @@ import { BeolOptionService } from '../beol-option/beol-option.service';
 import { ProcessplanService } from '../processplan/processplan.service';
 import { ProductMetaService } from '../product-meta/product-meta.service';
 import { RequestItemService } from '../request-item/request-item.service';
+import { ProductKeyTable } from 'src/product-key-table/product-key-table.entity';
+import { BeolOption } from 'src/beol-option/beol-option.entity';
+import { Processplan } from 'src/processplan/processplan.entity';
+import { ProductMeta } from 'src/product-meta/product-meta.entity';
+import { RequestItem } from 'src/request-item/request-item.entity';
 
 @Resolver(() => Product)
 export class ProductResolver {

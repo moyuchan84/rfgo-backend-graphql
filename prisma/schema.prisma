@@ -81,11 +81,11 @@ model product {
 }
 
 model item_approval_status {
-  id                           Int                            @id @default(autoincrement())
-  request_item_id              Int                            @unique
-  request_approval             Unsupported("approval_status")
-  request_approval_update_time DateTime?                      @default(now()) @db.Timestamptz(6)
-  request_item                 request_item                   @relation(fields: [request_item_id], references: [id], onDelete: Cascade, map: "fk_request_item_approval")
+  id                           Int          @id @default(autoincrement())
+  request_item_id              Int          @unique
+  request_approval             String
+  request_approval_update_time DateTime?    @default(now()) @db.Timestamptz(6)
+  request_item                 request_item @relation(fields: [request_item_id], references: [id], onDelete: Cascade, map: "fk_request_item_approval")
 
   @@schema("request")
 }

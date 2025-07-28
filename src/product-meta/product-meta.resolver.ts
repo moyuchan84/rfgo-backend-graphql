@@ -4,6 +4,7 @@ import { ProductMeta } from './product-meta.entity';
 import { CreateProductMetaInput } from './dto/create-product-meta.input';
 import { UpdateProductMetaInput } from './dto/update-product-meta.input';
 import { ProductService } from '../product/product.service';
+import { Product } from 'src/product/product.entity';
 
 @Resolver(() => ProductMeta)
 export class ProductMetaResolver {

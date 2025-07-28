@@ -8,7 +8,13 @@ export class BeolOptionService {
   constructor(private prisma: PrismaService) {}
 
   create(createBeolOptionInput: CreateBeolOptionInput) {
-    return this.prisma.beol_option.create({ data: createBeolOptionInput });
+    const { processplanId, optionName } = createBeolOptionInput;
+    return this.prisma.beol_option.create({
+      data: {
+        processplan_id: processplanId,
+        option_name: optionName,
+      },
+    });
   }
 
   findAll() {
@@ -20,9 +26,13 @@ export class BeolOptionService {
   }
 
   update(id: number, updateBeolOptionInput: UpdateBeolOptionInput) {
+    const { processplanId, optionName } = updateBeolOptionInput;
     return this.prisma.beol_option.update({
       where: { id },
-      data: updateBeolOptionInput,
+      data: {
+        processplan_id: processplanId,
+        option_name: optionName,
+      },
     });
   }
 

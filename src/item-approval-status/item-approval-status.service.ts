@@ -8,7 +8,13 @@ export class ItemApprovalStatusService {
   constructor(private prisma: PrismaService) {}
 
   create(createItemApprovalStatusInput: CreateItemApprovalStatusInput) {
-    return this.prisma.item_approval_status.create({ data: createItemApprovalStatusInput });
+    const { requestItemId, requestApproval } = createItemApprovalStatusInput;
+    return this.prisma.item_approval_status.create({
+      data: {
+        request_item_id: requestItemId,
+        request_approval: requestApproval,
+      },
+    });
   }
 
   findAll() {
@@ -20,9 +26,13 @@ export class ItemApprovalStatusService {
   }
 
   update(id: number, updateItemApprovalStatusInput: UpdateItemApprovalStatusInput) {
+    const { requestItemId, requestApproval } = updateItemApprovalStatusInput;
     return this.prisma.item_approval_status.update({
       where: { id },
-      data: updateItemApprovalStatusInput,
+      data: {
+        request_item_id: requestItemId,
+        request_approval: requestApproval,
+      },
     });
   }
 

@@ -2,9 +2,69 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateUserInput {
-  email: String!
-  name: String
+type BeolOption {
+  id: Int!
+  optionName: String!
+  processplan: Processplan!
+  processplanId: Int!
+  product: [Product!]
+  productKeyTable: [ProductKeyTable!]
+  updateTime: DateTime
+}
+
+input CreateBeolOptionInput {
+  optionName: String!
+  processplanId: Int!
+}
+
+input CreateItemApprovalStatusInput {
+  requestApproval: String!
+  requestItemId: Int!
+}
+
+input CreateKeyInfoTableInput {
+  infoTableName: String!
+  infoTableRows: [JSON!]!
+  originalHeaders: [String!]!
+  processplanId: Int!
+  revNo: Int!
+}
+
+input CreateProcessplanInput {
+  designRule: String!
+}
+
+input CreateProductInput {
+  beolOptionId: Int!
+  partId: String!
+  processplanId: Int!
+  productName: String!
+}
+
+input CreateProductKeyTableInput {
+  beolOptionId: Int!
+  metaInfo: [String!]!
+  originalHeaders: [String!]!
+  processplanId: Int!
+  productId: Int!
+  revNo: Int!
+  tableName: String!
+  tableRows: [JSON!]!
+}
+
+input CreateProductMetaInput {
+  customer: String!
+  mtoDate: DateTime!
+  processId: String!
+  productId: Int!
+}
+
+input CreateRequestItemInput {
+  description: String
+  productId: Int!
+  requesterId: String!
+  requesterName: String!
+  title: String!
 }
 
 """
@@ -12,27 +72,197 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type ItemApprovalStatus {
+  id: Int!
+  requestApproval: String!
+  requestApprovalUpdateTime: DateTime
+  requestItem: RequestItem!
+  requestItemId: Int!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type KeyInfoTable {
+  id: Int!
+  infoTableName: String!
+  infoTableRows: [JSON!]!
+  originalHeaders: [String!]!
+  processplan: Processplan!
+  processplanId: Int!
+  revNo: Int!
+  updateTime: DateTime
+}
+
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
-  removeUser(id: Int!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  createBeolOption(createBeolOptionInput: CreateBeolOptionInput!): BeolOption!
+  createItemApprovalStatus(createItemApprovalStatusInput: CreateItemApprovalStatusInput!): ItemApprovalStatus!
+  createKeyInfoTable(createKeyInfoTableInput: CreateKeyInfoTableInput!): KeyInfoTable!
+  createProcessplan(createProcessplanInput: CreateProcessplanInput!): Processplan!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  createProductKeyTable(createProductKeyTableInput: CreateProductKeyTableInput!): ProductKeyTable!
+  createProductMeta(createProductMetaInput: CreateProductMetaInput!): ProductMeta!
+  createRequestItem(createRequestItemInput: CreateRequestItemInput!): RequestItem!
+  removeBeolOption(id: Int!): BeolOption!
+  removeItemApprovalStatus(id: Int!): ItemApprovalStatus!
+  removeKeyInfoTable(id: Int!): KeyInfoTable!
+  removeProcessplan(id: Int!): Processplan!
+  removeProduct(id: Int!): Product!
+  removeProductKeyTable(id: Int!): ProductKeyTable!
+  removeProductMeta(id: Int!): ProductMeta!
+  removeRequestItem(id: Int!): RequestItem!
+  updateBeolOption(updateBeolOptionInput: UpdateBeolOptionInput!): BeolOption!
+  updateItemApprovalStatus(updateItemApprovalStatusInput: UpdateItemApprovalStatusInput!): ItemApprovalStatus!
+  updateKeyInfoTable(updateKeyInfoTableInput: UpdateKeyInfoTableInput!): KeyInfoTable!
+  updateProcessplan(updateProcessplanInput: UpdateProcessplanInput!): Processplan!
+  updateProduct(updateProductInput: UpdateProductInput!): Product!
+  updateProductKeyTable(updateProductKeyTableInput: UpdateProductKeyTableInput!): ProductKeyTable!
+  updateProductMeta(updateProductMetaInput: UpdateProductMetaInput!): ProductMeta!
+  updateRequestItem(updateRequestItemInput: UpdateRequestItemInput!): RequestItem!
+}
+
+type Processplan {
+  beolOption: [BeolOption!]
+  designRule: String!
+  id: Int!
+  keyInfoTable: [KeyInfoTable!]
+  product: [Product!]
+  productKeyTable: [ProductKeyTable!]
+  updateTime: DateTime
+}
+
+type Product {
+  beolOption: BeolOption!
+  beolOptionId: Int!
+  id: Int!
+  partId: String!
+  processplan: Processplan!
+  processplanId: Int!
+  productKeyTable: [ProductKeyTable!]
+  productMeta: ProductMeta
+  productName: String!
+  requestItem: [RequestItem!]
+  updateTime: DateTime
+}
+
+type ProductKeyTable {
+  beolOption: BeolOption!
+  beolOptionId: Int!
+  id: Int!
+  metaInfo: [String!]!
+  originalHeaders: [String!]!
+  processplan: Processplan!
+  processplanId: Int!
+  product: Product!
+  productId: Int!
+  revNo: Int!
+  tableName: String!
+  tableRows: [JSON!]!
+  updateTime: DateTime
+}
+
+type ProductMeta {
+  customer: String!
+  id: Int!
+  mtoDate: DateTime!
+  processId: String!
+  product: Product!
+  productId: Int!
+  updateTime: DateTime
 }
 
 type Query {
-  user(id: Int!): User
-  users: [User!]!
+  beolOption(id: Int!): BeolOption!
+  beolOptions: [BeolOption!]!
+  itemApprovalStatus(id: Int!): ItemApprovalStatus!
+  itemApprovalStatuses: [ItemApprovalStatus!]!
+  keyInfoTable(id: Int!): KeyInfoTable!
+  keyInfoTables: [KeyInfoTable!]!
+  processplan(id: Int!): Processplan!
+  processplans: [Processplan!]!
+  product(id: Int!): Product!
+  productKeyTable(id: Int!): ProductKeyTable!
+  productKeyTables: [ProductKeyTable!]!
+  productMeta(id: Int!): ProductMeta!
+  productMetas: [ProductMeta!]!
+  products: [Product!]!
+  requestItem(id: Int!): RequestItem!
+  requestItems: [RequestItem!]!
 }
 
-input UpdateUserInput {
-  email: String
+type RequestItem {
+  description: String
   id: Int!
-  name: String
+  itemApprovalStatus: ItemApprovalStatus
+  product: Product!
+  productId: Int!
+  requesterId: String!
+  requesterName: String!
+  title: String!
+  updateTime: DateTime
 }
 
-type User {
-  createdAt: DateTime!
-  email: String!
+input UpdateBeolOptionInput {
   id: Int!
-  name: String
-  updatedAt: DateTime!
+  optionName: String
+  processplanId: Int
+}
+
+input UpdateItemApprovalStatusInput {
+  id: Int!
+  requestApproval: String
+  requestItemId: Int
+}
+
+input UpdateKeyInfoTableInput {
+  id: Int!
+  infoTableName: String
+  infoTableRows: [JSON!]
+  originalHeaders: [String!]
+  processplanId: Int
+  revNo: Int
+}
+
+input UpdateProcessplanInput {
+  designRule: String
+  id: Int!
+}
+
+input UpdateProductInput {
+  beolOptionId: Int
+  id: Int!
+  partId: String
+  processplanId: Int
+  productName: String
+}
+
+input UpdateProductKeyTableInput {
+  beolOptionId: Int
+  id: Int!
+  metaInfo: [String!]
+  originalHeaders: [String!]
+  processplanId: Int
+  productId: Int
+  revNo: Int
+  tableName: String
+  tableRows: [JSON!]
+}
+
+input UpdateProductMetaInput {
+  customer: String
+  id: Int!
+  mtoDate: DateTime
+  processId: String
+  productId: Int
+}
+
+input UpdateRequestItemInput {
+  description: String
+  id: Int!
+  productId: Int
+  requesterId: String
+  requesterName: String
+  title: String
 }

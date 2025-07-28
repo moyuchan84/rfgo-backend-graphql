@@ -7,6 +7,10 @@ import { KeyInfoTableService } from '../key-info-table/key-info-table.service';
 import { ProductKeyTableService } from '../product-key-table/product-key-table.service';
 import { BeolOptionService } from '../beol-option/beol-option.service';
 import { ProductService } from '../product/product.service';
+import { KeyInfoTable } from 'src/key-info-table/key-info-table.entity';
+import { ProductKeyTable } from 'src/product-key-table/product-key-table.entity';
+import { BeolOption } from 'src/beol-option/beol-option.entity';
+import { Product } from 'src/product/product.entity';
 
 @Resolver(() => Processplan)
 export class ProcessplanResolver {

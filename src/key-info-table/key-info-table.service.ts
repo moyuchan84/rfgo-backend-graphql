@@ -8,7 +8,16 @@ export class KeyInfoTableService {
   constructor(private prisma: PrismaService) {}
 
   create(createKeyInfoTableInput: CreateKeyInfoTableInput) {
-    return this.prisma.key_info_table.create({ data: createKeyInfoTableInput });
+    const { processplanId, infoTableName, originalHeaders, infoTableRows, revNo } = createKeyInfoTableInput;
+    return this.prisma.key_info_table.create({
+      data: {
+        processplan_id: processplanId,
+        info_table_name: infoTableName,
+        original_headers: originalHeaders,
+        info_table_rows: infoTableRows,
+        rev_no: revNo,
+      },
+    });
   }
 
   findAll() {
@@ -20,9 +29,16 @@ export class KeyInfoTableService {
   }
 
   update(id: number, updateKeyInfoTableInput: UpdateKeyInfoTableInput) {
+    const { processplanId, infoTableName, originalHeaders, infoTableRows, revNo } = updateKeyInfoTableInput;
     return this.prisma.key_info_table.update({
       where: { id },
-      data: updateKeyInfoTableInput,
+      data: {
+        processplan_id: processplanId,
+        info_table_name: infoTableName,
+        original_headers: originalHeaders,
+        info_table_rows: infoTableRows,
+        rev_no: revNo,
+      },
     });
   }
 

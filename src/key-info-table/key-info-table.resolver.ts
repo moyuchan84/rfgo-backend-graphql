@@ -4,6 +4,7 @@ import { KeyInfoTable } from './key-info-table.entity';
 import { CreateKeyInfoTableInput } from './dto/create-key-info-table.input';
 import { UpdateKeyInfoTableInput } from './dto/update-key-info-table.input';
 import { ProcessplanService } from '../processplan/processplan.service';
+import { Processplan } from 'src/processplan/processplan.entity';
 
 @Resolver(() => KeyInfoTable)
 export class KeyInfoTableResolver {

@@ -8,7 +8,8 @@ export class ProcessplanService {
   constructor(private prisma: PrismaService) {}
 
   create(createProcessplanInput: CreateProcessplanInput) {
-    return this.prisma.processplan.create({ data: createProcessplanInput });
+    const {designRule} = createProcessplanInput;
+    return this.prisma.processplan.create({ data: {design_rule : designRule} });
   }
 
   findAll() {

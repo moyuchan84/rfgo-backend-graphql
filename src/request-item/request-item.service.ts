@@ -8,7 +8,16 @@ export class RequestItemService {
   constructor(private prisma: PrismaService) {}
 
   create(createRequestItemInput: CreateRequestItemInput) {
-    return this.prisma.request_item.create({ data: createRequestItemInput });
+    const { productId, title, description, requesterId, requesterName } = createRequestItemInput;
+    return this.prisma.request_item.create({
+      data: {
+        product_id: productId,
+        title: title,
+        description: description,
+        requester_id: requesterId,
+        requester_name: requesterName,
+      },
+    });
   }
 
   findAll() {
@@ -20,9 +29,16 @@ export class RequestItemService {
   }
 
   update(id: number, updateRequestItemInput: UpdateRequestItemInput) {
+    const { productId, title, description, requesterId, requesterName } = updateRequestItemInput;
     return this.prisma.request_item.update({
       where: { id },
-      data: updateRequestItemInput,
+      data: {
+        product_id: productId,
+        title: title,
+        description: description,
+        requester_id: requesterId,
+        requester_name: requesterName,
+      },
     });
   }
 

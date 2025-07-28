@@ -6,6 +6,9 @@ import { UpdateProductKeyTableInput } from './dto/update-product-key-table.input
 import { BeolOptionService } from '../beol-option/beol-option.service';
 import { ProcessplanService } from '../processplan/processplan.service';
 import { ProductService } from '../product/product.service';
+import { BeolOption } from 'src/beol-option/beol-option.entity';
+import { Processplan } from 'src/processplan/processplan.entity';
+import { Product } from 'src/product/product.entity';
 
 @Resolver(() => ProductKeyTable)
 export class ProductKeyTableResolver {
