@@ -1,0 +1,117 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["keydata", "master", "request"]
+}
+
+model key_info_table {
+  id               Int         @id @default(autoincrement())
+  processplan_id   Int
+  info_table_name  String
+  original_headers String[]
+  info_table_rows  Json[]
+  rev_no           Int
+  update_time      DateTime?   @default(now()) @db.Timestamptz(6)
+  processplan      processplan @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_processplan_key_info")
+
+  @@schema("keydata")
+}
+
+model product_key_table {
+  id               Int         @id @default(autoincrement())
+  product_id       Int
+  beol_option_id   Int
+  processplan_id   Int
+  table_name       String
+  original_headers String[]
+  meta_info        String[]
+  table_rows       Json[]
+  rev_no           Int
+  update_time      DateTime?   @default(now()) @db.Timestamptz(6)
+  beol_option      beol_option @relation(fields: [beol_option_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_beol_option")
+  processplan      processplan @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_processplan")
+  product          product     @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_product")
+
+  @@schema("keydata")
+}
+
+model beol_option {
+  id                Int                 @id @default(autoincrement())
+  processplan_id    Int
+  option_name       String
+  update_time       DateTime?           @default(now()) @db.Timestamptz(6)
+  product_key_table product_key_table[]
+  processplan       processplan         @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_processplan")
+  product           product[]
+
+  @@schema("master")
+}
+
+model processplan {
+  id                Int                 @id @default(autoincrement())
+  design_rule       String
+  update_time       DateTime?           @default(now()) @db.Timestamptz(6)
+  key_info_table    key_info_table[]
+  product_key_table product_key_table[]
+  beol_option       beol_option[]
+  product           product[]
+
+  @@schema("master")
+}
+
+model product {
+  id                Int                 @id @default(autoincrement())
+  beol_option_id    Int
+  processplan_id    Int
+  part_id           String              @unique
+  product_name      String
+  update_time       DateTime?           @default(now()) @db.Timestamptz(6)
+  product_key_table product_key_table[]
+  beol_option       beol_option         @relation(fields: [beol_option_id], references: [id], onDelete: Cascade, map: "fk_beol_option")
+  processplan       processplan         @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_processplan_product")
+  product_meta      product_meta?
+  request_item      request_item[]
+
+  @@schema("master")
+}
+
+model item_approval_status {
+  id                           Int                            @id @default(autoincrement())
+  request_item_id              Int                            @unique
+  request_approval             Unsupported("approval_status")
+  request_approval_update_time DateTime?                      @default(now()) @db.Timestamptz(6)
+  request_item                 request_item                   @relation(fields: [request_item_id], references: [id], onDelete: Cascade, map: "fk_request_item_approval")
+
+  @@schema("request")
+}
+
+model product_meta {
+  id          Int       @id @default(autoincrement())
+  product_id  Int       @unique
+  process_id  String
+  mto_date    DateTime  @db.Date
+  customer    String
+  update_time DateTime? @default(now()) @db.Timestamptz(6)
+  product     product   @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "fk_product_meta")
+
+  @@schema("request")
+}
+
+model request_item {
+  id                   Int                   @id @default(autoincrement())
+  product_id           Int
+  title                String
+  description          String?
+  requester_id         String
+  requester_name       String
+  update_time          DateTime?             @default(now()) @db.Timestamptz(6)
+  item_approval_status item_approval_status?
+  product              product               @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "fk_product_item")
+
+  @@schema("request")
+}
