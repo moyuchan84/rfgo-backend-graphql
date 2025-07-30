@@ -2,10 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateRequestItemInput } from './dto/create-request-item.input';
 import { UpdateRequestItemInput } from './dto/update-request-item.input';
+import { RequestItem } from './request-item.entity';
 
 @Injectable()
 export class RequestItemService {
   constructor(private prisma: PrismaService) {}
+
+  private toRequestItemEntity(requestItem: any): RequestItem {
+    return {
+      id: requestItem.id,
+      productId: requestItem.product_id,
+      title: requestItem.title,
+      description: requestItem.description,
+      requesterId: requestItem.requester_id,
+      requesterName: requestItem.requester_name,
+      updateTime: requestItem.update_time,
+    };
+  }
 
   create(createRequestItemInput: CreateRequestItemInput) {
     const { productId, title, description, requesterId, requesterName } = createRequestItemInput;
@@ -20,12 +33,14 @@ export class RequestItemService {
     });
   }
 
-  findAll() {
-    return this.prisma.request_item.findMany();
+  async findAll(): Promise<RequestItem[]> {
+    const requestItems = await this.prisma.request_item.findMany();
+    return requestItems.map(this.toRequestItemEntity);
   }
 
-  findOne(id: number) {
-    return this.prisma.request_item.findUnique({ where: { id } });
+  async findOne(id: number): Promise<RequestItem> {
+    const requestItem = await this.prisma.request_item.findUnique({ where: { id } });
+    return this.toRequestItemEntity(requestItem);
   }
 
   update(id: number, updateRequestItemInput: UpdateRequestItemInput) {

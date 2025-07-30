@@ -2,10 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateBeolOptionInput } from './dto/create-beol-option.input';
 import { UpdateBeolOptionInput } from './dto/update-beol-option.input';
+import { BeolOption } from './beol-option.entity';
 
 @Injectable()
 export class BeolOptionService {
   constructor(private prisma: PrismaService) {}
+
+  private toBeolOptionEntity(beolOption: any): BeolOption {
+    return {
+      id: beolOption.id,
+      processplanId: beolOption.processplan_id,
+      optionName: beolOption.option_name,
+      updateTime: beolOption.update_time,
+    };
+  }
 
   create(createBeolOptionInput: CreateBeolOptionInput) {
     const { processplanId, optionName } = createBeolOptionInput;
@@ -17,12 +27,14 @@ export class BeolOptionService {
     });
   }
 
-  findAll() {
-    return this.prisma.beol_option.findMany();
+  async findAll(): Promise<BeolOption[]> {
+    const beolOptions = await this.prisma.beol_option.findMany();
+    return beolOptions.map(this.toBeolOptionEntity);
   }
 
-  findOne(id: number) {
-    return this.prisma.beol_option.findUnique({ where: { id } });
+  async findOne(id: number): Promise<BeolOption> {
+    const beolOption = await this.prisma.beol_option.findUnique({ where: { id } });
+    return this.toBeolOptionEntity(beolOption);
   }
 
   update(id: number, updateBeolOptionInput: UpdateBeolOptionInput) {

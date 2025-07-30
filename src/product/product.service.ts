@@ -2,13 +2,28 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
+import { Product } from './product.entity';
 
 @Injectable()
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
+  private toProductEntity(
+    product: any,
+  ): Product {
+    return {
+      id: product.id,
+      beolOptionId: product.beol_option_id,
+      processplanId: product.processplan_id,
+      partId: product.part_id,
+      productName: product.product_name,
+      updateTime: product.update_time,
+    };
+  }
+
   create(createProductInput: CreateProductInput) {
-    const { beolOptionId, processplanId, partId, productName } = createProductInput;
+    const { beolOptionId, processplanId, partId, productName } =
+      createProductInput;
     return this.prisma.product.create({
       data: {
         beol_option_id: beolOptionId,
@@ -19,16 +34,19 @@ export class ProductService {
     });
   }
 
-  findAll() {
-    return this.prisma.product.findMany();
+  async findAll(): Promise<Product[]> {
+    const products = await this.prisma.product.findMany();
+    return products.map(this.toProductEntity);
   }
 
-  findOne(id: number) {
-    return this.prisma.product.findUnique({ where: { id } });
+  async findOne(id: number): Promise<Product> {
+    const product = await this.prisma.product.findUnique({ where: { id } });
+    return this.toProductEntity(product);
   }
 
   update(id: number, updateProductInput: UpdateProductInput) {
-    const { beolOptionId, processplanId, partId, productName } = updateProductInput;
+    const { beolOptionId, processplanId, partId, productName } =
+      updateProductInput;
     return this.prisma.product.update({
       where: { id },
       data: {
@@ -45,10 +63,14 @@ export class ProductService {
   }
 
   findByBeolOptionId(beolOptionId: number) {
-    return this.prisma.product.findMany({ where: { beol_option_id: beolOptionId } });
+    return this.prisma.product.findMany({
+      where: { beol_option_id: beolOptionId },
+    });
   }
 
   findByProcessplanId(processplanId: number) {
-    return this.prisma.product.findMany({ where: { processplan_id: processplanId } });
+    return this.prisma.product.findMany({
+      where: { processplan_id: processplanId },
+    });
   }
 }

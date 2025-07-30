@@ -3,27 +3,19 @@
   "configurations": [
     {
       "type": "node",
-      "request": "attach",
-      "name": "NestJS Debug (Attach)",
-      "port": 9229, // NestJS --debug의 기본 포트
-      "restart": true, // --watch 모드에서 재시작 시 자동 재연결
-      "protocol": "inspector",
-      "skipFiles": ["<node_internals>/**", "node_modules/**"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
-    },
-    {
-      "type": "node",
       "request": "launch",
-      "name": "NestJS Debug (Launch)",
-      "args": ["${workspaceFolder}/src/main.ts"],
-      "runtimeArgs": ["--nolazy", "-r", "ts-node/register", "-r", "tsconfig-paths/register"],
-      "sourceMaps": true,
-      "cwd": "${workspaceFolder}",
-      "protocol": "inspector",
+      "name": "NestJS Debug",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "start:debug"
+      ],
+      "port": 9229,
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**", "node_modules/**"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ]
     }
   ]
 }

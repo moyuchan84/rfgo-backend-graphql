@@ -2,10 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateProductMetaInput } from './dto/create-product-meta.input';
 import { UpdateProductMetaInput } from './dto/update-product-meta.input';
+import { ProductMeta } from './product-meta.entity';
 
 @Injectable()
 export class ProductMetaService {
   constructor(private prisma: PrismaService) {}
+
+  private toProductMetaEntity(productMeta: any): ProductMeta {
+    return {
+      id: productMeta.id,
+      productId: productMeta.product_id,
+      processId: productMeta.process_id,
+      mtoDate: productMeta.mto_date,
+      customer: productMeta.customer,
+      updateTime: productMeta.update_time,
+    };
+  }
 
   create(createProductMetaInput: CreateProductMetaInput) {
     const { productId, processId, mtoDate, customer } = createProductMetaInput;
@@ -19,12 +31,14 @@ export class ProductMetaService {
     });
   }
 
-  findAll() {
-    return this.prisma.product_meta.findMany();
+  async findAll(): Promise<ProductMeta[]> {
+    const productMetas = await this.prisma.product_meta.findMany();
+    return productMetas.map(this.toProductMetaEntity);
   }
 
-  findOne(id: number) {
-    return this.prisma.product_meta.findUnique({ where: { id } });
+  async findOne(id: number): Promise<ProductMeta> {
+    const productMeta = await this.prisma.product_meta.findUnique({ where: { id } });
+    return this.toProductMetaEntity(productMeta);
   }
 
   update(id: number, updateProductMetaInput: UpdateProductMetaInput) {
