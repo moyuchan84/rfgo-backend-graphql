@@ -14,26 +14,26 @@ export class ProductKeyTableService {
       productId: productKeyTable.product_id,
       beolOptionId: productKeyTable.beol_option_id,
       processplanId: productKeyTable.processplan_id,
-      tableName: productKeyTable.table_name,
-      originalHeaders: productKeyTable.original_headers,
-      metaInfo: productKeyTable.meta_info,
-      tableRows: productKeyTable.table_rows,
+      keyTableName: productKeyTable.key_table_name,
+      originalHeader: productKeyTable.original_header,
+      metaInfoList: productKeyTable.meta_info_list,
+      keyTableJson: productKeyTable.key_table_json,
       revNo: productKeyTable.rev_no,
       updateTime: productKeyTable.update_time,
     };
   }
 
   create(createProductKeyTableInput: CreateProductKeyTableInput) {
-    const { productId, beolOptionId, processplanId, tableName, originalHeaders, metaInfo, tableRows, revNo } = createProductKeyTableInput;
+    const { productId, beolOptionId, processplanId, keyTableName, originalHeader, metaInfoList, keyTableJson, revNo } = createProductKeyTableInput;
     return this.prisma.product_key_table.create({
       data: {
         product_id: productId,
         beol_option_id: beolOptionId,
         processplan_id: processplanId,
-        table_name: tableName,
-        original_headers: originalHeaders,
-        meta_info: metaInfo,
-        table_rows: tableRows,
+        key_table_name: keyTableName,
+        original_header: originalHeader,
+        meta_info_list: metaInfoList,
+        key_table_json: keyTableJson,
         rev_no: revNo,
       },
     });
@@ -50,17 +50,17 @@ export class ProductKeyTableService {
   }
 
   update(id: number, updateProductKeyTableInput: UpdateProductKeyTableInput) {
-    const { productId, beolOptionId, processplanId, tableName, originalHeaders, metaInfo, tableRows, revNo } = updateProductKeyTableInput;
+    const { productId, beolOptionId, processplanId, keyTableName, originalHeader, metaInfoList, keyTableJson, revNo } = updateProductKeyTableInput;
     return this.prisma.product_key_table.update({
       where: { id },
       data: {
         product_id: productId,
         beol_option_id: beolOptionId,
         processplan_id: processplanId,
-        table_name: tableName,
-        original_headers: originalHeaders,
-        meta_info: metaInfo,
-        table_rows: tableRows,
+        key_table_name: keyTableName,
+        original_header: originalHeader,
+        meta_info_list: metaInfoList,
+        key_table_json: keyTableJson,
         rev_no: revNo,
       },
     });

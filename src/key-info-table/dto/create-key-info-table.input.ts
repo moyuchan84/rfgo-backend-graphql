@@ -10,10 +10,10 @@ export class CreateKeyInfoTableInput {
   infoTableName: string;
 
   @Field(() => [String])
-  originalHeaders: string[];
+  originalHeader: string[];
 
   @Field(() => [GraphQLJSON])
-  infoTableRows: any[];
+  infoTableJson: any[];
 
   @Field(() => Int)
   revNo: number;

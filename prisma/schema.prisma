@@ -10,32 +10,32 @@ datasource db {
 }
 
 model key_info_table {
-  id               Int         @id @default(autoincrement())
-  processplan_id   Int
-  info_table_name  String
-  original_headers String[]
-  info_table_rows  Json[]
-  rev_no           Int
-  update_time      DateTime?   @default(now()) @db.Timestamptz(6)
-  processplan      processplan @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_processplan_key_info")
+  id              Int         @id @default(autoincrement())
+  processplan_id  Int
+  info_table_name String
+  original_header String[]
+  info_table_json Json[]
+  rev_no          Int
+  update_time     DateTime?   @default(now()) @db.Timestamptz(6)
+  processplan     processplan @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_processplan_key_info")
 
   @@schema("keydata")
 }
 
 model product_key_table {
-  id               Int         @id @default(autoincrement())
-  product_id       Int
-  beol_option_id   Int
-  processplan_id   Int
-  table_name       String
-  original_headers String[]
-  meta_info        String[]
-  table_rows       Json[]
-  rev_no           Int
-  update_time      DateTime?   @default(now()) @db.Timestamptz(6)
-  beol_option      beol_option @relation(fields: [beol_option_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_beol_option")
-  processplan      processplan @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_processplan")
-  product          product     @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_product")
+  id              Int         @id @default(autoincrement())
+  product_id      Int
+  beol_option_id  Int
+  processplan_id  Int
+  key_table_name  String
+  original_header String[]
+  meta_info_list  String[]
+  key_table_json  Json[]
+  rev_no          Int
+  update_time     DateTime?   @default(now()) @db.Timestamptz(6)
+  beol_option     beol_option @relation(fields: [beol_option_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_beol_option")
+  processplan     processplan @relation(fields: [processplan_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_processplan")
+  product         product     @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "fk_product_key_table_product")
 
   @@schema("keydata")
 }

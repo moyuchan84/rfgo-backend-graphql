@@ -13,16 +13,16 @@ export class CreateProductKeyTableInput {
   processplanId: number;
 
   @Field(() => String)
-  tableName: string;
+  keyTableName: string;
 
   @Field(() => [String])
-  originalHeaders: string[];
+  originalHeader: string[];
 
   @Field(() => [String])
-  metaInfo: string[];
+  metaInfoList: string[];
 
   @Field(() => [GraphQLJSON])
-  tableRows: any[];
+  keyTableJson: any[];
 
   @Field(() => Int)
   revNo: number;

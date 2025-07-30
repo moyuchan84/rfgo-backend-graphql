@@ -23,9 +23,9 @@ input CreateItemApprovalStatusInput {
 }
 
 input CreateKeyInfoTableInput {
+  infoTableJson: [JSON!]!
   infoTableName: String!
-  infoTableRows: [JSON!]!
-  originalHeaders: [String!]!
+  originalHeader: [String!]!
   processplanId: Int!
   revNo: Int!
 }
@@ -43,13 +43,13 @@ input CreateProductInput {
 
 input CreateProductKeyTableInput {
   beolOptionId: Int!
-  metaInfo: [String!]!
-  originalHeaders: [String!]!
+  keyTableJson: [JSON!]!
+  keyTableName: String!
+  metaInfoList: [String!]!
+  originalHeader: [String!]!
   processplanId: Int!
   productId: Int!
   revNo: Int!
-  tableName: String!
-  tableRows: [JSON!]!
 }
 
 input CreateProductMetaInput {
@@ -87,9 +87,9 @@ scalar JSON
 
 type KeyInfoTable {
   id: Int!
+  infoTableJson: [JSON!]!
   infoTableName: String!
-  infoTableRows: [JSON!]!
-  originalHeaders: [String!]!
+  originalHeader: [String!]!
   processplan: Processplan!
   processplanId: Int!
   revNo: Int!
@@ -151,15 +151,15 @@ type ProductKeyTable {
   beolOption: BeolOption!
   beolOptionId: Int!
   id: Int!
-  metaInfo: [String!]!
-  originalHeaders: [String!]!
+  keyTableJson: [JSON!]!
+  keyTableName: String!
+  metaInfoList: [String!]!
+  originalHeader: [String!]!
   processplan: Processplan!
   processplanId: Int!
   product: Product!
   productId: Int!
   revNo: Int!
-  tableName: String!
-  tableRows: [JSON!]!
   updateTime: DateTime
 }
 
@@ -218,9 +218,9 @@ input UpdateItemApprovalStatusInput {
 
 input UpdateKeyInfoTableInput {
   id: Int!
+  infoTableJson: [JSON!]
   infoTableName: String
-  infoTableRows: [JSON!]
-  originalHeaders: [String!]
+  originalHeader: [String!]
   processplanId: Int
   revNo: Int
 }
@@ -241,13 +241,13 @@ input UpdateProductInput {
 input UpdateProductKeyTableInput {
   beolOptionId: Int
   id: Int!
-  metaInfo: [String!]
-  originalHeaders: [String!]
+  keyTableJson: [JSON!]
+  keyTableName: String
+  metaInfoList: [String!]
+  originalHeader: [String!]
   processplanId: Int
   productId: Int
   revNo: Int
-  tableName: String
-  tableRows: [JSON!]
 }
 
 input UpdateProductMetaInput {

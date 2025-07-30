@@ -13,21 +13,21 @@ export class KeyInfoTableService {
       id: keyInfoTable.id,
       processplanId: keyInfoTable.processplan_id,
       infoTableName: keyInfoTable.info_table_name,
-      originalHeaders: keyInfoTable.original_headers,
-      infoTableRows: keyInfoTable.info_table_rows,
+      originalHeader: keyInfoTable.original_header,
+      infoTableJson: keyInfoTable.info_table_json,
       revNo: keyInfoTable.rev_no,
       updateTime: keyInfoTable.update_time,
     };
   }
 
   create(createKeyInfoTableInput: CreateKeyInfoTableInput) {
-    const { processplanId, infoTableName, originalHeaders, infoTableRows, revNo } = createKeyInfoTableInput;
+    const { processplanId, infoTableName, originalHeader, infoTableJson, revNo } = createKeyInfoTableInput;
     return this.prisma.key_info_table.create({
       data: {
         processplan_id: processplanId,
         info_table_name: infoTableName,
-        original_headers: originalHeaders,
-        info_table_rows: infoTableRows,
+        original_header: originalHeader,
+        info_table_json: infoTableJson,
         rev_no: revNo,
       },
     });
@@ -44,14 +44,14 @@ export class KeyInfoTableService {
   }
 
   update(id: number, updateKeyInfoTableInput: UpdateKeyInfoTableInput) {
-    const { processplanId, infoTableName, originalHeaders, infoTableRows, revNo } = updateKeyInfoTableInput;
+    const { processplanId, infoTableName, originalHeader, infoTableJson, revNo } = updateKeyInfoTableInput;
     return this.prisma.key_info_table.update({
       where: { id },
       data: {
         processplan_id: processplanId,
         info_table_name: infoTableName,
-        original_headers: originalHeaders,
-        info_table_rows: infoTableRows,
+        original_header: originalHeader,
+        info_table_json: infoTableJson,
         rev_no: revNo,
       },
     });
