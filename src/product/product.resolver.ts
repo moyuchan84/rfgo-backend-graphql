@@ -42,6 +42,16 @@ export class ProductResolver {
     return this.productService.findOne(id);
   }
 
+  @Query(() => [Product], { name: 'productsByProcessplanId' })
+  productsByProcessplanId(@Args('processplanId', { type: () => Int }) processplanId: number) {
+    return this.productService.findByProcessplanId(processplanId);
+  }
+
+  @Query(() => [Product], { name: 'productsByBeolOptionId' })
+  productsByBeolOptionId(@Args('beolOptionId', { type: () => Int }) beolOptionId: number) {
+    return this.productService.findByBeolOptionId(beolOptionId);
+  }
+
   @Mutation(() => Product)
   updateProduct(
     @Args('updateProductInput') updateProductInput: UpdateProductInput,

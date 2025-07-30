@@ -36,6 +36,11 @@ export class BeolOptionResolver {
     return this.beolOptionService.findOne(id);
   }
 
+  @Query(() => [BeolOption], { name: 'beolOptionsByProcessplanId' })
+  beolOptionsByProcessplanId(@Args('processplanId', { type: () => Int }) processplanId: number) {
+    return this.beolOptionService.findByProcessplanId(processplanId);
+  }
+
   @Mutation(() => BeolOption)
   updateBeolOption(
     @Args('updateBeolOptionInput') updateBeolOptionInput: UpdateBeolOptionInput,

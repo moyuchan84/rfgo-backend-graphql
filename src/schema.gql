@@ -176,6 +176,7 @@ type ProductMeta {
 type Query {
   beolOption(id: Int!): BeolOption!
   beolOptions: [BeolOption!]!
+  beolOptionsByProcessplanId(processplanId: Int!): [BeolOption!]!
   itemApprovalStatus(id: Int!): ItemApprovalStatus!
   itemApprovalStatuses: [ItemApprovalStatus!]!
   keyInfoTable(id: Int!): KeyInfoTable!
@@ -188,6 +189,8 @@ type Query {
   productMeta(id: Int!): ProductMeta!
   productMetas: [ProductMeta!]!
   products: [Product!]!
+  productsByBeolOptionId(beolOptionId: Int!): [Product!]!
+  productsByProcessplanId(processplanId: Int!): [Product!]!
   requestItem(id: Int!): RequestItem!
   requestItems: [RequestItem!]!
 }

@@ -52,7 +52,8 @@ export class BeolOptionService {
     return this.prisma.beol_option.delete({ where: { id } });
   }
 
-  findByProcessplanId(processplanId: number) {
-    return this.prisma.beol_option.findMany({ where: { processplan_id: processplanId } });
+  async findByProcessplanId(processplanId: number): Promise<BeolOption[]> {
+    const beolOptions = await this.prisma.beol_option.findMany({ where: { processplan_id: processplanId } });
+    return beolOptions.map(this.toBeolOptionEntity);
   }
 }

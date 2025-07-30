@@ -62,15 +62,17 @@ export class ProductService {
     return this.prisma.product.delete({ where: { id } });
   }
 
-  findByBeolOptionId(beolOptionId: number) {
-    return this.prisma.product.findMany({
+  async findByBeolOptionId(beolOptionId: number): Promise<Product[]> {
+    const products = await this.prisma.product.findMany({
       where: { beol_option_id: beolOptionId },
     });
+    return products.map(this.toProductEntity);
   }
 
-  findByProcessplanId(processplanId: number) {
-    return this.prisma.product.findMany({
+  async findByProcessplanId(processplanId: number): Promise<Product[]> {
+    const products = await this.prisma.product.findMany({
       where: { processplan_id: processplanId },
     });
+    return products.map(this.toProductEntity);
   }
 }
