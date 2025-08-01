@@ -37,6 +37,11 @@ export class ProductKeyTableResolver {
     return this.productKeyTableService.findOne(id);
   }
 
+  @Query(() => [ProductKeyTable], { name: 'productKeyTablesByProductId' })
+  findByProductId(@Args('productId', { type: () => Int }) productId: number) {
+    return this.productKeyTableService.findByProductId(productId);
+  }
+
   @Mutation(() => ProductKeyTable)
   updateProductKeyTable(
     @Args('updateProductKeyTableInput')

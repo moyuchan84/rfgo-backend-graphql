@@ -70,15 +70,18 @@ export class ProductKeyTableService {
     return this.prisma.product_key_table.delete({ where: { id } });
   }
 
-  findByProductId(productId: number) {
-    return this.prisma.product_key_table.findMany({ where: { product_id: productId } });
+  async findByProductId(productId: number): Promise<ProductKeyTable[]> {
+    const productKeyTables = await this.prisma.product_key_table.findMany({ where: { product_id: productId } });
+    return productKeyTables.map(this.toProductKeyTableEntity);
   }
 
-  findByBeolOptionId(beolOptionId: number) {
-    return this.prisma.product_key_table.findMany({ where: { beol_option_id: beolOptionId } });
+  async findByBeolOptionId(beolOptionId: number): Promise<ProductKeyTable[]> {
+    const productKeyTables = await this.prisma.product_key_table.findMany({ where: { beol_option_id: beolOptionId } });
+    return productKeyTables.map(this.toProductKeyTableEntity);
   }
 
-  findByProcessplanId(processplanId: number) {
-    return this.prisma.product_key_table.findMany({ where: { processplan_id: processplanId } });
+  async findByProcessplanId(processplanId: number): Promise<ProductKeyTable[]> {
+    const productKeyTables = await this.prisma.product_key_table.findMany({ where: { processplan_id: processplanId } });
+    return productKeyTables.map(this.toProductKeyTableEntity);
   }
 }

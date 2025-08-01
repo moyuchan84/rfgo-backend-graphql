@@ -186,6 +186,7 @@ type Query {
   product(id: Int!): Product!
   productKeyTable(id: Int!): ProductKeyTable!
   productKeyTables: [ProductKeyTable!]!
+  productKeyTablesByProductId(productId: Int!): [ProductKeyTable!]!
   productMeta(id: Int!): ProductMeta!
   productMetas: [ProductMeta!]!
   products: [Product!]!
