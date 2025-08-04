@@ -8,6 +8,9 @@ export class CreateRequestItemInput {
   @Field(() => String)
   title: string;
 
+  @Field(() => [String], { nullable: true })
+  edmList?: string[];
+
   @Field(() => String, { nullable: true })
   description?: string;
 

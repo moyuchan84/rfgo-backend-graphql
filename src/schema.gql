@@ -264,6 +264,7 @@ input UpdateProductMetaInput {
 
 input UpdateRequestItemInput {
   description: String
+  edmList: [String!]
   id: Int!
   productId: Int
   requesterId: String

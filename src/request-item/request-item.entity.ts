@@ -16,6 +16,9 @@ export class RequestItem {
   @Field(() => String, { nullable: true })
   description: string | null;
 
+  @Field(() => [String], { nullable: true })
+  edmList: string[] | null;
+
   @Field(() => String)
   requesterId: string;
 

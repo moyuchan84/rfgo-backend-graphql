@@ -44,13 +44,14 @@ export class RequestItemService {
   }
 
   update(id: number, updateRequestItemInput: UpdateRequestItemInput) {
-    const { productId, title, description, requesterId, requesterName } = updateRequestItemInput;
+    const { productId, title, description, edmList, requesterId, requesterName } = updateRequestItemInput;
     return this.prisma.request_item.update({
       where: { id },
       data: {
         product_id: productId,
         title: title,
         description: description,
+        edm_list: edmList,
         requester_id: requesterId,
         requester_name: requesterName,
       },
