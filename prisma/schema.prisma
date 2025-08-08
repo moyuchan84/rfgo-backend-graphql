@@ -110,6 +110,7 @@ model request_item {
   requester_id         String
   requester_name       String
   update_time          DateTime?             @default(now()) @db.Timestamptz(6)
+  edm_list             String[]
   item_approval_status item_approval_status?
   product              product               @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "fk_product_item")
 

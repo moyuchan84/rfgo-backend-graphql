@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateRequestItemInput } from './dto/create-request-item.input';
-import { UpdateRequestItemInput } from './dto/update-request-item.input';
-import { RequestItem } from './request-item.entity';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateRequestItemInput } from "./dto/create-request-item.input";
+import { UpdateRequestItemInput } from "./dto/update-request-item.input";
+import { RequestItem } from "./request-item.entity";
 
 @Injectable()
 export class RequestItemService {
@@ -17,11 +17,13 @@ export class RequestItemService {
       requesterId: requestItem.requester_id,
       requesterName: requestItem.requester_name,
       updateTime: requestItem.update_time,
+      edmList: requestItem.edm_list,
     };
   }
 
   create(createRequestItemInput: CreateRequestItemInput) {
-    const { productId, title, description, requesterId, requesterName } = createRequestItemInput;
+    const { productId, title, description, requesterId, requesterName } =
+      createRequestItemInput;
     return this.prisma.request_item.create({
       data: {
         product_id: productId,
@@ -39,12 +41,21 @@ export class RequestItemService {
   }
 
   async findOne(id: number): Promise<RequestItem> {
-    const requestItem = await this.prisma.request_item.findUnique({ where: { id } });
+    const requestItem = await this.prisma.request_item.findUnique({
+      where: { id },
+    });
     return this.toRequestItemEntity(requestItem);
   }
 
   update(id: number, updateRequestItemInput: UpdateRequestItemInput) {
-    const { productId, title, description, edmList, requesterId, requesterName } = updateRequestItemInput;
+    const {
+      productId,
+      title,
+      description,
+      edmList,
+      requesterId,
+      requesterName,
+    } = updateRequestItemInput;
     return this.prisma.request_item.update({
       where: { id },
       data: {
@@ -63,6 +74,8 @@ export class RequestItemService {
   }
 
   findByProductId(productId: number) {
-    return this.prisma.request_item.findMany({ where: { product_id: productId } });
+    return this.prisma.request_item.findMany({
+      where: { product_id: productId },
+    });
   }
 }

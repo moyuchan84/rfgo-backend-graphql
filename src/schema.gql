@@ -61,6 +61,7 @@ input CreateProductMetaInput {
 
 input CreateRequestItemInput {
   description: String
+  edmList: [String!]
   productId: Int!
   requesterId: String!
   requesterName: String!
@@ -198,6 +199,7 @@ type Query {
 
 type RequestItem {
   description: String
+  edmList: [String!]
   id: Int!
   itemApprovalStatus: ItemApprovalStatus
   product: Product!
