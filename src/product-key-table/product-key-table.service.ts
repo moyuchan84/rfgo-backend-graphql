@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateProductKeyTableInput } from './dto/create-product-key-table.input';
-import { UpdateProductKeyTableInput } from './dto/update-product-key-table.input';
-import { ProductKeyTable } from './product-key-table.entity';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateProductKeyTableInput } from "./dto/create-product-key-table.input";
+import { UpdateProductKeyTableInput } from "./dto/update-product-key-table.input";
+import { ProductKeyTable } from "./product-key-table.entity";
 
 @Injectable()
 export class ProductKeyTableService {
@@ -24,7 +24,16 @@ export class ProductKeyTableService {
   }
 
   create(createProductKeyTableInput: CreateProductKeyTableInput) {
-    const { productId, beolOptionId, processplanId, keyTableName, originalHeader, metaInfoList, keyTableJson, revNo } = createProductKeyTableInput;
+    const {
+      productId,
+      beolOptionId,
+      processplanId,
+      keyTableName,
+      originalHeader,
+      metaInfoList,
+      keyTableJson,
+      revNo,
+    } = createProductKeyTableInput;
     return this.prisma.product_key_table.create({
       data: {
         product_id: productId,
@@ -45,12 +54,23 @@ export class ProductKeyTableService {
   }
 
   async findOne(id: number): Promise<ProductKeyTable> {
-    const productKeyTable = await this.prisma.product_key_table.findUnique({ where: { id } });
+    const productKeyTable = await this.prisma.product_key_table.findUnique({
+      where: { id },
+    });
     return this.toProductKeyTableEntity(productKeyTable);
   }
 
   update(id: number, updateProductKeyTableInput: UpdateProductKeyTableInput) {
-    const { productId, beolOptionId, processplanId, keyTableName, originalHeader, metaInfoList, keyTableJson, revNo } = updateProductKeyTableInput;
+    const {
+      productId,
+      beolOptionId,
+      processplanId,
+      keyTableName,
+      originalHeader,
+      metaInfoList,
+      keyTableJson,
+      revNo,
+    } = updateProductKeyTableInput;
     return this.prisma.product_key_table.update({
       where: { id },
       data: {
@@ -71,17 +91,23 @@ export class ProductKeyTableService {
   }
 
   async findByProductId(productId: number): Promise<ProductKeyTable[]> {
-    const productKeyTables = await this.prisma.product_key_table.findMany({ where: { product_id: productId } });
+    const productKeyTables = await this.prisma.product_key_table.findMany({
+      where: { product_id: productId },
+    });
     return productKeyTables.map(this.toProductKeyTableEntity);
   }
 
   async findByBeolOptionId(beolOptionId: number): Promise<ProductKeyTable[]> {
-    const productKeyTables = await this.prisma.product_key_table.findMany({ where: { beol_option_id: beolOptionId } });
+    const productKeyTables = await this.prisma.product_key_table.findMany({
+      where: { beol_option_id: beolOptionId },
+    });
     return productKeyTables.map(this.toProductKeyTableEntity);
   }
 
   async findByProcessplanId(processplanId: number): Promise<ProductKeyTable[]> {
-    const productKeyTables = await this.prisma.product_key_table.findMany({ where: { processplan_id: processplanId } });
+    const productKeyTables = await this.prisma.product_key_table.findMany({
+      where: { processplan_id: processplanId },
+    });
     return productKeyTables.map(this.toProductKeyTableEntity);
   }
 }

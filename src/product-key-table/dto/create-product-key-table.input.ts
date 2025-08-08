@@ -1,5 +1,5 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
+import { InputType, Field, Int } from "@nestjs/graphql";
+import { GraphQLJSON } from "graphql-type-json";
 
 @InputType()
 export class CreateProductKeyTableInput {

@@ -1,16 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateProductInput } from './dto/create-product.input';
-import { UpdateProductInput } from './dto/update-product.input';
-import { Product } from './product.entity';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateProductInput } from "./dto/create-product.input";
+import { UpdateProductInput } from "./dto/update-product.input";
+import { Product } from "./product.entity";
 
 @Injectable()
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
-  private toProductEntity(
-    product: any,
-  ): Product {
+  private toProductEntity(product: any): Product {
     return {
       id: product.id,
       beolOptionId: product.beol_option_id,

@@ -1,6 +1,6 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
-import { Processplan } from '../processplan/processplan.entity';
+import { ObjectType, Field, Int } from "@nestjs/graphql";
+import { GraphQLJSON } from "graphql-type-json";
+import { Processplan } from "../processplan/processplan.entity";
 
 @ObjectType()
 export class KeyInfoTable {

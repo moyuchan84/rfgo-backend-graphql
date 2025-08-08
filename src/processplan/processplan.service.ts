@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateProcessplanInput } from './dto/create-processplan.input';
-import { UpdateProcessplanInput } from './dto/update-processplan.input';
-import { Processplan } from './processplan.entity';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateProcessplanInput } from "./dto/create-processplan.input";
+import { UpdateProcessplanInput } from "./dto/update-processplan.input";
+import { Processplan } from "./processplan.entity";
 
 @Injectable()
 export class ProcessplanService {
@@ -17,8 +17,10 @@ export class ProcessplanService {
   }
 
   create(createProcessplanInput: CreateProcessplanInput) {
-    const {designRule} = createProcessplanInput;
-    return this.prisma.processplan.create({ data: {design_rule : designRule} });
+    const { designRule } = createProcessplanInput;
+    return this.prisma.processplan.create({
+      data: { design_rule: designRule },
+    });
   }
 
   async findAll(): Promise<Processplan[]> {
@@ -27,7 +29,9 @@ export class ProcessplanService {
   }
 
   async findOne(id: number): Promise<Processplan> {
-    const processplan = await this.prisma.processplan.findUnique({ where: { id } });
+    const processplan = await this.prisma.processplan.findUnique({
+      where: { id },
+    });
     return this.toProcessplanEntity(processplan);
   }
 

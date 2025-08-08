@@ -1,14 +1,22 @@
-import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
-import { ProductKeyTableService } from './product-key-table.service';
-import { ProductKeyTable } from './product-key-table.entity';
-import { CreateProductKeyTableInput } from './dto/create-product-key-table.input';
-import { UpdateProductKeyTableInput } from './dto/update-product-key-table.input';
-import { BeolOptionService } from '../beol-option/beol-option.service';
-import { ProcessplanService } from '../processplan/processplan.service';
-import { ProductService } from '../product/product.service';
-import { BeolOption } from 'src/beol-option/beol-option.entity';
-import { Processplan } from 'src/processplan/processplan.entity';
-import { Product } from 'src/product/product.entity';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+} from "@nestjs/graphql";
+import { ProductKeyTableService } from "./product-key-table.service";
+import { ProductKeyTable } from "./product-key-table.entity";
+import { CreateProductKeyTableInput } from "./dto/create-product-key-table.input";
+import { UpdateProductKeyTableInput } from "./dto/update-product-key-table.input";
+import { BeolOptionService } from "../beol-option/beol-option.service";
+import { ProcessplanService } from "../processplan/processplan.service";
+import { ProductService } from "../product/product.service";
+import { BeolOption } from "src/beol-option/beol-option.entity";
+import { Processplan } from "src/processplan/processplan.entity";
+import { Product } from "src/product/product.entity";
 
 @Resolver(() => ProductKeyTable)
 export class ProductKeyTableResolver {
@@ -16,45 +24,45 @@ export class ProductKeyTableResolver {
     private readonly productKeyTableService: ProductKeyTableService,
     private readonly beolOptionService: BeolOptionService,
     private readonly processplanService: ProcessplanService,
-    private readonly productService: ProductService,
+    private readonly productService: ProductService
   ) {}
 
   @Mutation(() => ProductKeyTable)
   createProductKeyTable(
-    @Args('createProductKeyTableInput')
-    createProductKeyTableInput: CreateProductKeyTableInput,
+    @Args("createProductKeyTableInput")
+    createProductKeyTableInput: CreateProductKeyTableInput
   ) {
     return this.productKeyTableService.create(createProductKeyTableInput);
   }
 
-  @Query(() => [ProductKeyTable], { name: 'productKeyTables' })
+  @Query(() => [ProductKeyTable], { name: "productKeyTables" })
   findAll() {
     return this.productKeyTableService.findAll();
   }
 
-  @Query(() => ProductKeyTable, { name: 'productKeyTable' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => ProductKeyTable, { name: "productKeyTable" })
+  findOne(@Args("id", { type: () => Int }) id: number) {
     return this.productKeyTableService.findOne(id);
   }
 
-  @Query(() => [ProductKeyTable], { name: 'productKeyTablesByProductId' })
-  findByProductId(@Args('productId', { type: () => Int }) productId: number) {
+  @Query(() => [ProductKeyTable], { name: "productKeyTablesByProductId" })
+  findByProductId(@Args("productId", { type: () => Int }) productId: number) {
     return this.productKeyTableService.findByProductId(productId);
   }
 
   @Mutation(() => ProductKeyTable)
   updateProductKeyTable(
-    @Args('updateProductKeyTableInput')
-    updateProductKeyTableInput: UpdateProductKeyTableInput,
+    @Args("updateProductKeyTableInput")
+    updateProductKeyTableInput: UpdateProductKeyTableInput
   ) {
     return this.productKeyTableService.update(
       updateProductKeyTableInput.id,
-      updateProductKeyTableInput,
+      updateProductKeyTableInput
     );
   }
 
   @Mutation(() => ProductKeyTable)
-  removeProductKeyTable(@Args('id', { type: () => Int }) id: number) {
+  removeProductKeyTable(@Args("id", { type: () => Int }) id: number) {
     return this.productKeyTableService.remove(id);
   }
 

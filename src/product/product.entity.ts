@@ -1,9 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { ProductKeyTable } from '../product-key-table/product-key-table.entity';
-import { BeolOption } from '../beol-option/beol-option.entity';
-import { Processplan } from '../processplan/processplan.entity';
-import { ProductMeta } from '../product-meta/product-meta.entity';
-import { RequestItem } from '../request-item/request-item.entity';
+import { ObjectType, Field, Int } from "@nestjs/graphql";
+import { ProductKeyTable } from "../product-key-table/product-key-table.entity";
+import { BeolOption } from "../beol-option/beol-option.entity";
+import { Processplan } from "../processplan/processplan.entity";
+import { ProductMeta } from "../product-meta/product-meta.entity";
+import { RequestItem } from "../request-item/request-item.entity";
 
 @ObjectType()
 export class Product {

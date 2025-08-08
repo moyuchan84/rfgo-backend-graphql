@@ -189,6 +189,7 @@ type Query {
   productKeyTables: [ProductKeyTable!]!
   productKeyTablesByProductId(productId: Int!): [ProductKeyTable!]!
   productMeta(id: Int!): ProductMeta!
+  productMetaByProductId(productId: Int!): ProductMeta
   productMetas: [ProductMeta!]!
   products: [Product!]!
   productsByBeolOptionId(beolOptionId: Int!): [Product!]!

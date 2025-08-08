@@ -1,6 +1,6 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { ItemApprovalStatus } from '../item-approval-status/item-approval-status.entity';
-import { Product } from '../product/product.entity';
+import { ObjectType, Field, Int } from "@nestjs/graphql";
+import { ItemApprovalStatus } from "../item-approval-status/item-approval-status.entity";
+import { Product } from "../product/product.entity";
 
 @ObjectType()
 export class RequestItem {

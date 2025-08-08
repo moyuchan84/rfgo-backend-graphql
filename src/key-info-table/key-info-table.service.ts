@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateKeyInfoTableInput } from './dto/create-key-info-table.input';
-import { UpdateKeyInfoTableInput } from './dto/update-key-info-table.input';
-import { KeyInfoTable } from './key-info-table.entity';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateKeyInfoTableInput } from "./dto/create-key-info-table.input";
+import { UpdateKeyInfoTableInput } from "./dto/update-key-info-table.input";
+import { KeyInfoTable } from "./key-info-table.entity";
 
 @Injectable()
 export class KeyInfoTableService {
@@ -21,7 +21,13 @@ export class KeyInfoTableService {
   }
 
   create(createKeyInfoTableInput: CreateKeyInfoTableInput) {
-    const { processplanId, infoTableName, originalHeader, infoTableJson, revNo } = createKeyInfoTableInput;
+    const {
+      processplanId,
+      infoTableName,
+      originalHeader,
+      infoTableJson,
+      revNo,
+    } = createKeyInfoTableInput;
     return this.prisma.key_info_table.create({
       data: {
         processplan_id: processplanId,
@@ -39,12 +45,20 @@ export class KeyInfoTableService {
   }
 
   async findOne(id: number): Promise<KeyInfoTable> {
-    const keyInfoTable = await this.prisma.key_info_table.findUnique({ where: { id } });
+    const keyInfoTable = await this.prisma.key_info_table.findUnique({
+      where: { id },
+    });
     return this.toKeyInfoTableEntity(keyInfoTable);
   }
 
   update(id: number, updateKeyInfoTableInput: UpdateKeyInfoTableInput) {
-    const { processplanId, infoTableName, originalHeader, infoTableJson, revNo } = updateKeyInfoTableInput;
+    const {
+      processplanId,
+      infoTableName,
+      originalHeader,
+      infoTableJson,
+      revNo,
+    } = updateKeyInfoTableInput;
     return this.prisma.key_info_table.update({
       where: { id },
       data: {
@@ -62,6 +76,8 @@ export class KeyInfoTableService {
   }
 
   findByProcessplanId(processplanId: number) {
-    return this.prisma.key_info_table.findMany({ where: { processplan_id: processplanId } });
+    return this.prisma.key_info_table.findMany({
+      where: { processplan_id: processplanId },
+    });
   }
 }

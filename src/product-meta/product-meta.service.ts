@@ -1,14 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateProductMetaInput } from './dto/create-product-meta.input';
-import { UpdateProductMetaInput } from './dto/update-product-meta.input';
-import { ProductMeta } from './product-meta.entity';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateProductMetaInput } from "./dto/create-product-meta.input";
+import { UpdateProductMetaInput } from "./dto/update-product-meta.input";
+import { ProductMeta } from "./product-meta.entity";
 
 @Injectable()
 export class ProductMetaService {
   constructor(private prisma: PrismaService) {}
 
   private toProductMetaEntity(productMeta: any): ProductMeta {
+    if (!productMeta) {
+      return null;
+    }
     return {
       id: productMeta.id,
       productId: productMeta.product_id,
@@ -37,7 +40,9 @@ export class ProductMetaService {
   }
 
   async findOne(id: number): Promise<ProductMeta> {
-    const productMeta = await this.prisma.product_meta.findUnique({ where: { id } });
+    const productMeta = await this.prisma.product_meta.findUnique({
+      where: { id },
+    });
     return this.toProductMetaEntity(productMeta);
   }
 
@@ -58,7 +63,10 @@ export class ProductMetaService {
     return this.prisma.product_meta.delete({ where: { id } });
   }
 
-  findByProductId(productId: number) {
-    return this.prisma.product_meta.findUnique({ where: { product_id: productId } });
+  async findByProductId(productId: number): Promise<ProductMeta | null> {
+    const productMeta = await this.prisma.product_meta.findUnique({
+      where: { product_id: productId },
+    });
+    return this.toProductMetaEntity(productMeta);
   }
 }
