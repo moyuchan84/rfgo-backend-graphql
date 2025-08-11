@@ -78,4 +78,19 @@ export class RequestItemService {
       where: { product_id: productId },
     });
   }
+
+  async findAllByUpdateTimeRange(
+    fromTime: Date,
+    endTime: Date
+  ): Promise<RequestItem[]> {
+    const requestItems = await this.prisma.request_item.findMany({
+      where: {
+        update_time: {
+          gte: fromTime,
+          lte: endTime,
+        },
+      },
+    });
+    return requestItems.map(this.toRequestItemEntity);
+  }
 }

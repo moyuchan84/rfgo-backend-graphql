@@ -196,6 +196,7 @@ type Query {
   productsByProcessplanId(processplanId: Int!): [Product!]!
   requestItem(id: Int!): RequestItem!
   requestItems: [RequestItem!]!
+  requestItemsByUpdateTimeRange(endTime: DateTime!, fromTime: DateTime!): [RequestItem!]!
 }
 
 type RequestItem {

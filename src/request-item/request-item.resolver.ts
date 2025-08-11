@@ -42,6 +42,14 @@ export class RequestItemResolver {
     return this.requestItemService.findOne(id);
   }
 
+  @Query(() => [RequestItem], { name: "requestItemsByUpdateTimeRange" })
+  requestItemsByUpdateTimeRange(
+    @Args("fromTime", { type: () => Date }) fromTime: Date,
+    @Args("endTime", { type: () => Date }) endTime: Date
+  ) {
+    return this.requestItemService.findAllByUpdateTimeRange(fromTime, endTime);
+  }
+
   @Mutation(() => RequestItem)
   updateRequestItem(
     @Args("updateRequestItemInput")
